@@ -6,11 +6,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-#Load model
-best_model = joblib.load('best_model.joblib')
+# Load model
+best_model = joblib.load('apples/best_model.joblib')
 
-#Get data
-data = pd.read_csv('apple_quality.csv').drop(index=4000)
+# Get data
+data = pd.read_csv('apples/apple_quality.csv').drop(index=4000)
 X = data.drop(columns=['Quality', 'A_id'], axis=1)
 y = data['Quality']
 
@@ -26,18 +26,16 @@ y_true, y_probs = y_test, best_model.predict_proba(X_test)[:, 1]
 # Create a precision recall curve
 precision, recall, thresholds = precision_recall_curve(y_true, y_probs,)
 
-# Plotting using Matplotlib
-fig, ax = plt.subplots(figsize=(8, 6))
-
 # Plot Precision-Recall on a single graph
+fig, ax = plt.subplots(figsize=(8, 6))
 ax.set_xlim([0.0, 1.0])
-ax.step(thresholds, precision[:-1], label='Precision', where='post')
-ax.step(thresholds, recall[:-1], label='Recall', where='post')
-ax.set_xlabel('Threshold')
-ax.set_ylabel('Score')
+ax.step(recall, precision, color='b', alpha=0.2, where='post')
+ax.fill_between(recall, precision, step='post', alpha=0.2, color='b')
+ax.set_xlabel('Recall')
+ax.set_ylabel('Precision')
 ax.set_ylim([0.0, 1.05])
+ax.set_xlim([0.0, 1.0])
 ax.set_title('Precision-Recall Curve')
-ax.legend()
 
 plt.tight_layout()
 plt.show()
