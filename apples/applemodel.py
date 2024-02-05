@@ -38,5 +38,5 @@ joblib.dump(label_encoder, 'label_encoder.joblib')
 
 final_predictions = best_model.predict(X_test)
 
-accuracy = accuracy_score(y_test, final_predictions)
-print(f'The accuracy is: {accuracy}')
+#accuracy = accuracy_score(y_test, final_predictions)
+#print(f'The accuracy is: {accuracy}')
