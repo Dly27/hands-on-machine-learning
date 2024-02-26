@@ -32,12 +32,12 @@ param_grid = {
 grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='accuracy')
 grid_search.fit(X_train, y_train)
 
-# Get the best model from the grid search
+# Getbest model from grid search
 best_model = grid_search.best_estimator_
 
-# Save the best model to a file
+# Save best model
 joblib.dump(best_model, 'mnist_model.joblib')
 
-# Load the saved model
+# Load saved model
 best_model = joblib.load('mnist_model.joblib')
 
